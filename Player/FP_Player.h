@@ -8,7 +8,8 @@
 #include "Camera/CameraComponent.h"
 #include "Learning/Enumeration/EUseKind.h"
 #include "Learning/Inventory/InventoryComponent.h"
-#include "Learning/Player/FP_PlayerController.h"
+#include "Learning/UI/HUD/MainHUD.h"
+#include "Learning/UI/Journal/PlayerJournal.h"
 #include "FP_Player.generated.h"
 
 UCLASS()
@@ -30,6 +31,18 @@ public:
 	float SprintSpeed = 600;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
 	float TraceLength = 500;
+
+	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
+	UMainHUD* MainHUD;
+
+	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
+	TSubclassOf<UMainHUD> MainHUDClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
+	UPlayerJournal* JournalHUD;
+
+	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
+	TSubclassOf<UPlayerJournal> JournalClass;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
 	UInventoryComponent* Inventory;
@@ -53,9 +66,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	USurvivalHandlerComponent* GetSurvivalHandler();
-
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	AFP_PlayerController* GetPlayerController();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPick(FItemStructure item);

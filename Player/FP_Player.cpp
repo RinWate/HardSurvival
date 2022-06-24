@@ -96,23 +96,18 @@ void AFP_Player::LookTrace()
 		if (hit.bBlockingHit)
 		{
 			LookAt = Cast<ABaseItem>(hit.GetActor());
-			GetPlayerController()->MainHUD->SetName(LookAt->Display_name);
+			MainHUD->SetName(LookAt->Display_name);
 		}
 	} else
 	{
 		LookAt = nullptr;
-		GetPlayerController()->MainHUD->SetName(FText::FromString(""));
+		MainHUD->SetName(FText::FromString(""));
 	}
 }
 
 USurvivalHandlerComponent* AFP_Player::GetSurvivalHandler()
 {
 	return SurvivalHandler;
-}
-
-AFP_PlayerController* AFP_Player::GetPlayerController()
-{
-	return Cast<AFP_PlayerController>(GetController());
 }
 
 // Called when the game starts or when spawned
@@ -126,7 +121,7 @@ void AFP_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	LookTrace();
-	GetPlayerController()->MainHUD->UpdateHUD(SurvivalHandler);
+	MainHUD->UpdateHUD(SurvivalHandler);
 }
 
 // Called to bind functionality to input
