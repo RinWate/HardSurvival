@@ -13,7 +13,7 @@ void AFP_PlayerController::BeginPlay()
 		{
 			if (!MainHUD)
 			{
-				MainHUD = CreateWidget<UMainHUD>(this, MainHUDClass);
+				//MainHUD = CreateWidget<UMainHUD>(this, MainHUDClass);
 				
 			}
 			MainHUD->AddToViewport();
