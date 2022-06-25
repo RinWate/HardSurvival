@@ -31,6 +31,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	FItemStructure GetItemStructure(ABaseItem* item);
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	FItemStructure GetItemStructureByIndex(int Index);
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	float GetWeight();
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void UpdateWeight();

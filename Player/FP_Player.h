@@ -9,6 +9,7 @@
 #include "Learning/Enumeration/EUseKind.h"
 #include "Learning/Inventory/InventoryComponent.h"
 #include "Learning/UI/HUD/MainHUD.h"
+#include "Learning/UI/Journal/InventorySlot.h"
 #include "Learning/UI/Journal/PlayerJournal.h"
 #include "FP_Player.generated.h"
 
@@ -52,6 +53,8 @@ public:
 
 	UPROPERTY()
 	USurvivalHandlerComponent* SurvivalHandler;
+	UPROPERTY()
+	UInventoryComponent* InventoryComponent;
 	TEnumAsByte<EUseKind> KindOfUse;
 	
 	void MoveRight(float value);
@@ -67,6 +70,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	USurvivalHandlerComponent* GetSurvivalHandler();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UInventoryComponent* GetInventory();
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPick(FItemStructure item);
 

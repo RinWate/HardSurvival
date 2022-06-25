@@ -50,6 +50,11 @@ FItemStructure UInventoryComponent::GetItemStructure(ABaseItem* item)
 	return result;
 }
 
+FItemStructure UInventoryComponent::GetItemStructureByIndex(int Index)
+{
+	return Items[Index];
+}
+
 float UInventoryComponent::GetWeight()
 {
 	return CurrentWeight;

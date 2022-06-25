@@ -89,8 +89,6 @@ void AFP_Player::LookTrace()
 	FVector EndPoint = ((ForwardVector * TraceLength) + StartPoint);
 	FCollisionQueryParams Params;
 
-	//DrawDebugLine(GetWorld(), StartPoint, EndPoint, FColor::Green, false, 1, 0, 1);
-
 	if (GetWorld()->LineTraceSingleByObjectType(hit, StartPoint, EndPoint, ECC_GameTraceChannel1, Params))
 	{
 		if (hit.bBlockingHit)
@@ -108,6 +106,11 @@ void AFP_Player::LookTrace()
 USurvivalHandlerComponent* AFP_Player::GetSurvivalHandler()
 {
 	return SurvivalHandler;
+}
+
+UInventoryComponent* AFP_Player::GetInventory()
+{
+	return InventoryComponent;
 }
 
 // Called when the game starts or when spawned
