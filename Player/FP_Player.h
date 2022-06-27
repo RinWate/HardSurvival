@@ -37,15 +37,9 @@ public:
 	UMainHUD* MainHUD;
 
 	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
-	TSubclassOf<UMainHUD> MainHUDClass;
-
-	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
 	UPlayerJournal* JournalHUD;
 
-	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
-	TSubclassOf<UPlayerJournal> JournalClass;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
+	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
 	UInventoryComponent* Inventory;
 	
 	UPROPERTY(BlueprintReadOnly)
@@ -53,8 +47,6 @@ public:
 
 	UPROPERTY()
 	USurvivalHandlerComponent* SurvivalHandler;
-	UPROPERTY()
-	UInventoryComponent* InventoryComponent;
 	TEnumAsByte<EUseKind> KindOfUse;
 	
 	void MoveRight(float value);
@@ -64,7 +56,6 @@ public:
 	void SprintStart();
 	void SprintEnd();
 	void Use();
-	void OpenInventory();
 	void LookTrace();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
@@ -77,14 +68,10 @@ public:
 	void OnPick(FItemStructure item);
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };

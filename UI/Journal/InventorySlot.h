@@ -27,4 +27,7 @@ public:
 	UTextBlock* Durability;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UTextBlock* Weight;
+
+	UFUNCTION(BlueprintCallable)
+	void SetupSlot(FItemStructure InItem);
 };

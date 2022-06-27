@@ -13,5 +13,7 @@ UCLASS()
 class LEARNING_API AFP_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
 	
 };

@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/GridPanel.h"
-#include "Learning/Player/FP_Player.h"
 #include "Inventory.generated.h"
 
 /**
@@ -18,15 +17,8 @@ class LEARNING_API UInventory : public UUserWidget
 
 public:
 	
-	UPROPERTY(BlueprintReadOnly, meta = (ExposeOnSpawn = true))
-	USurvivalHandlerComponent* SurvivalHandler;
-	
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UGridPanel* InventoryPanel;
 
-	UPROPERTY()
-	TArray<FItemStructure> InItems;
-
-protected:
 	virtual void NativeConstruct() override;
 };

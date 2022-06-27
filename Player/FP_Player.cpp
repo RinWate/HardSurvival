@@ -75,11 +75,6 @@ void AFP_Player::Use()
 	}
 }
 
-void AFP_Player::OpenInventory()
-{
-	
-}
-
 void AFP_Player::LookTrace()
 {
 	FHitResult hit;
@@ -110,7 +105,7 @@ USurvivalHandlerComponent* AFP_Player::GetSurvivalHandler()
 
 UInventoryComponent* AFP_Player::GetInventory()
 {
-	return InventoryComponent;
+	return Inventory;
 }
 
 // Called when the game starts or when spawned
@@ -124,7 +119,7 @@ void AFP_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	LookTrace();
-	MainHUD->UpdateHUD(SurvivalHandler);
+	//MainHUD->UpdateHUD(SurvivalHandler);
 }
 
 // Called to bind functionality to input
@@ -139,6 +134,5 @@ void AFP_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFP_Player::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFP_Player::SprintEnd);
 	PlayerInputComponent->BindAction("Use", IE_Pressed, this, &AFP_Player::Use);
-	PlayerInputComponent->BindAction("Inventory", IE_Pressed, this, &AFP_Player::OpenInventory);
 }
 
