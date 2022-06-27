@@ -119,7 +119,7 @@ void AFP_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	LookTrace();
-	//MainHUD->UpdateHUD(SurvivalHandler);
+	MainHUD->UpdateHUD(SurvivalHandler);
 }
 
 // Called to bind functionality to input
