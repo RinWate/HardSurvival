@@ -3,3 +3,9 @@
 
 #include "PlayerJournal.h"
 
+#include "Learning/Player/FP_PlayerController.h"
+
+void UPlayerJournal::Setup()
+{
+	
+}

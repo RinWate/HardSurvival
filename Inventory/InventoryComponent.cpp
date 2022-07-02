@@ -19,6 +19,7 @@ void UInventoryComponent::AddItem(ABaseItem* item)
 
 void UInventoryComponent::RemoveItem(int index)
 {
+	if (Items.Num() > 0)
 	Items.RemoveAt(index);
 	UpdateWeight();
 }

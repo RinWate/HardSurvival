@@ -24,7 +24,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	FItemStructure GetItem(int index);
-	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Inventory")
 	TArray<FItemStructure> GetItems();
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Inventory")
 	int GetItemsCount();
@@ -37,6 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void UpdateWeight();
 
+	
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
 	float MaxWeight;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")

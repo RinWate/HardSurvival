@@ -26,14 +26,6 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UVerticalBox* NotificationQuery;
-	UPROPERTY(meta = (BindWidget))
-	UProgressBar* HealthBar;
-	UPROPERTY(meta = (BindWidget))
-	UProgressBar* TempBar;
-	UPROPERTY(meta = (BindWidget))
-	UProgressBar* FoodBar;
-	UPROPERTY(meta = (BindWidget))
-	UProgressBar* ThirstBar;
 protected:
 	virtual void NativeConstruct() override;
 };

@@ -9,7 +9,7 @@
 #include "Learning/Enumeration/EUseKind.h"
 #include "Learning/Inventory/InventoryComponent.h"
 #include "Learning/UI/HUD/MainHUD.h"
-#include "Learning/UI/Journal/InventorySlot.h"
+#include "Learning/UI/Journal/Tabs/InventorySlot.h"
 #include "Learning/UI/Journal/PlayerJournal.h"
 #include "FP_Player.generated.h"
 
@@ -31,13 +31,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	float SprintSpeed = 600;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
-	float TraceLength = 500;
+	float TraceLength = 300;
 
 	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
 	UMainHUD* MainHUD;
 
 	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
 	UPlayerJournal* JournalHUD;
+
+	UPROPERTY(BlueprintReadOnly)
+	TSubclassOf<UPlayerJournal> JournalHUDClass;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
 	UInventoryComponent* Inventory;
@@ -55,6 +58,7 @@ public:
 	void Turn(float value);
 	void SprintStart();
 	void SprintEnd();
+	void OpenInventory();
 	void Use();
 	void LookTrace();
 

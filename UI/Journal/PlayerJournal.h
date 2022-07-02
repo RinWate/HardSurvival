@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
+#include "Components/Image.h"
 #include "Components/WidgetSwitcher.h"
 #include "PlayerJournal.generated.h"
 
@@ -17,6 +19,18 @@ class LEARNING_API UPlayerJournal : public UUserWidget
 
 public:
 	UPROPERTY(meta = (BindWidget))
-	UWidgetSwitcher* Tabs;
+	UButton* EquipTab;
+	UPROPERTY(meta = (BindWidget))
+	UButton* InventoryTab;
+	UPROPERTY(meta = (BindWidget))
+	UButton* SkillsTab;
+	
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	UImage* Background;
+
+	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+	int TabIndex;
+
+	void Setup();
 	
 };

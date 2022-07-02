@@ -15,7 +15,7 @@ class LEARNING_API USurvivalHandlerComponent : public UActorComponent
 public:	
 	USurvivalHandlerComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 150))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 100))
 	float Health;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 100))
 	float Temperature;

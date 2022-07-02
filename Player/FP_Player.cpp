@@ -4,10 +4,12 @@
 #include "FP_Player.h"
 
 #include "DrawDebugHelpers.h"
+#include "FP_PlayerController.h"
 #include "Components/CapsuleComponent.h"
 #include "Learning/Items/BaseItem.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/InputSettings.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFP_Player::AFP_Player()
@@ -58,6 +60,12 @@ void AFP_Player::SprintStart()
 void AFP_Player::SprintEnd()
 {
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+}
+
+void AFP_Player::OpenInventory()
+{
+	//JournalHUD = CreateWidget<UPlayerJournal>(Controller, JournalHUDClass);
+	//JournalHUD->Setup();
 }
 
 void AFP_Player::Use()
@@ -134,5 +142,6 @@ void AFP_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFP_Player::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFP_Player::SprintEnd);
 	PlayerInputComponent->BindAction("Use", IE_Pressed, this, &AFP_Player::Use);
+	PlayerInputComponent->BindAction("OpenJournal", IE_Pressed, this, &AFP_Player::OpenInventory);
 }
 

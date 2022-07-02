@@ -11,10 +11,7 @@ void UMainHUD::SetName(FText ItemName)
 
 void UMainHUD::UpdateHUD(USurvivalHandlerComponent* SurvivalHandler)
 {
-	HealthBar->SetPercent(SurvivalHandler->Health / 100);
-	TempBar->SetPercent(SurvivalHandler->Temperature / 100);
-	FoodBar->SetPercent(SurvivalHandler->Hunger / 100);
-	ThirstBar->SetPercent(SurvivalHandler->Thirst / 100);
+	
 }
 
 void UMainHUD::NativeConstruct()

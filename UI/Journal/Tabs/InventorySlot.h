@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Inventory.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
@@ -28,6 +29,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UTextBlock* Weight;
 
-	UFUNCTION(BlueprintCallable)
-	void SetupSlot(FItemStructure InItem);
+	UPROPERTY(BlueprintReadWrite)
+	int ItemIndex;
+
+	virtual void NativeConstruct() override;
 };

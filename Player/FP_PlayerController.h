@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Learning/Enumeration/EUseKind.h"
 #include "FP_PlayerController.generated.h"
 
 /**
