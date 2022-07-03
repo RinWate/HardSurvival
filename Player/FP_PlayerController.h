@@ -16,5 +16,6 @@ class LEARNING_API AFP_PlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	virtual void BeginPlay() override;
 	
 };

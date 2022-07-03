@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FP_PlayerController.h"
 #include "SurvivalHandlerComponent.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
@@ -19,9 +20,18 @@ class LEARNING_API AFP_Player : public ACharacter
 	GENERATED_BODY()
 
 public:
+	TSubclassOf<UUserWidget> MainHUDClass;
+	TSubclassOf<UUserWidget> JournalHUDClass;
+	
 	AFP_Player();
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* PlayerMesh;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bisInputEnable;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	float MouseSensitivity;
@@ -39,10 +49,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "User Interface")
 	UPlayerJournal* JournalHUD;
 
-	UPROPERTY(BlueprintReadOnly)
-	TSubclassOf<UPlayerJournal> JournalHUDClass;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
+	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
 	UInventoryComponent* Inventory;
 	
 	UPROPERTY(BlueprintReadOnly)
@@ -58,7 +65,7 @@ public:
 	void Turn(float value);
 	void SprintStart();
 	void SprintEnd();
-	void OpenInventory();
+	void OpenJournal();
 	void Use();
 	void LookTrace();
 
@@ -76,6 +83,6 @@ protected:
 
 public:	
 	virtual void Tick(float DeltaTime) override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 };

@@ -19,20 +19,34 @@ AFP_Player::AFP_Player()
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	SurvivalHandler = CreateDefaultSubobject<USurvivalHandlerComponent>("SurvivalHandler");
+	PlayerMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	Camera->SetupAttachment(GetCapsuleComponent());
 	Camera->bUsePawnControlRotation = true;
+	
+	Camera->SetRelativeLocation(FVector(0.0, 0, 80));
+	Camera->SetVisibility(true);
+	Camera->SetHiddenInGame(false);
+
+	ConstructorHelpers::FClassFinder<UUserWidget> MainHUDFinder(TEXT("/Game/UI/UI_MainHUD"));
+	MainHUDClass = MainHUDFinder.Class;
+	ConstructorHelpers::FClassFinder<UUserWidget> JournalHUDFinder(TEXT("/Game/UI/Journal/UI_PlayerJournal"));
+	JournalHUDClass = JournalHUDFinder.Class;
 
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	MouseSensitivity = 30.f;
+
+	bisInputEnable = true;
 }
 
 void AFP_Player::MoveRight(float value)
 {
-	AddMovementInput(GetActorRightVector(), value);
+	if (!bisInputEnable) return;
+		AddMovementInput(GetActorRightVector(), value);
 }
 
 void AFP_Player::MoveForward(float value)
 {
+	if (!bisInputEnable) return;
 	const FRotator rotation = Controller->GetControlRotation();
 	const FRotator yaw_rotation(0, rotation.Yaw, 0);
 
@@ -42,11 +56,13 @@ void AFP_Player::MoveForward(float value)
 
 void AFP_Player::LookUp(float value)
 {
+	if (!bisInputEnable) return;
 	AddControllerYawInput(value * MouseSensitivity * GetWorld()->GetDeltaSeconds());
 }
 
 void AFP_Player::Turn(float value)
 {
+	if (!bisInputEnable) return;
 	AddControllerPitchInput(value * MouseSensitivity * GetWorld()->GetDeltaSeconds());
 }
 
@@ -62,15 +78,26 @@ void AFP_Player::SprintEnd()
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 }
 
-void AFP_Player::OpenInventory()
+void AFP_Player::OpenJournal()
 {
-	//JournalHUD = CreateWidget<UPlayerJournal>(Controller, JournalHUDClass);
-	//JournalHUD->Setup();
+	bisInputEnable = !bisInputEnable;
+	if (!bisInputEnable)
+	{
+		JournalHUD = CreateWidget<UPlayerJournal>(UGameplayStatics::GetPlayerController(GetWorld(), 0), JournalHUDClass);
+		JournalHUD->AddToViewport();
+		MainHUD->SetVisibility(ESlateVisibility::Hidden);
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(true);
+	} else
+	{
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(false);
+		MainHUD->SetVisibility(ESlateVisibility::Visible);
+		JournalHUD->RemoveFromParent();
+	}
 }
 
 void AFP_Player::Use()
 {
-	if (LookAt == nullptr) return;
+	if (LookAt == nullptr || !bisInputEnable) return;
 	switch (KindOfUse)
 	{
 	case USE_PICKUP:
@@ -85,6 +112,7 @@ void AFP_Player::Use()
 
 void AFP_Player::LookTrace()
 {
+	if (!bisInputEnable) return;
 	FHitResult hit;
 	const FVector StartPoint = Camera->GetComponentLocation();
 
@@ -98,11 +126,13 @@ void AFP_Player::LookTrace()
 		{
 			LookAt = Cast<ABaseItem>(hit.GetActor());
 			MainHUD->SetName(LookAt->Display_name);
+			MainHUD->SetActionName(LookAt);
 		}
 	} else
 	{
 		LookAt = nullptr;
 		MainHUD->SetName(FText::FromString(""));
+		MainHUD->SetActionName(nullptr);
 	}
 }
 
@@ -120,6 +150,8 @@ UInventoryComponent* AFP_Player::GetInventory()
 void AFP_Player::BeginPlay()
 {
 	Super::BeginPlay();
+	MainHUD = CreateWidget<UMainHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0), MainHUDClass);
+	MainHUD->AddToViewport();
 }
 
 // Called every frame
@@ -136,12 +168,12 @@ void AFP_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &AFP_Player::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AFP_Player::MoveRight);
-	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("LookUp", this, &AFP_Player::LookUp);
+	PlayerInputComponent->BindAxis("Turn", this, &AFP_Player::Turn);
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFP_Player::SprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFP_Player::SprintEnd);
 	PlayerInputComponent->BindAction("Use", IE_Pressed, this, &AFP_Player::Use);
-	PlayerInputComponent->BindAction("OpenJournal", IE_Pressed, this, &AFP_Player::OpenInventory);
+	PlayerInputComponent->BindAction("OpenJournal", IE_Pressed, this, &AFP_Player::OpenJournal);
 }
 

@@ -2,3 +2,10 @@
 
 
 #include "FP_PlayerController.h"
+
+#include "Learning/Utility/RUtility.h"
+
+void AFP_PlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+}

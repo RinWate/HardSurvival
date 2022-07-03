@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ItemStructure.h"
 #include "GameFramework/Actor.h"
+#include "Learning/Enumeration/EUseKind.h"
 #include "BaseItem.generated.h"
 
 UCLASS()
@@ -26,6 +27,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings", meta = (MultiLine = true))
 	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
+	TEnumAsByte<EUseKind> ActionName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings")
 	UTexture2D* Icon;

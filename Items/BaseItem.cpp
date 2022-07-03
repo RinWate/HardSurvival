@@ -16,6 +16,7 @@ ABaseItem::ABaseItem()
 	Model->SetupAttachment(Scene);
 
 	Display_name.FromString("Default");
+	ActionName = USE_PICKUP;
 	Description.FromString("No");
 	Weight = 1.0;
 	Durability = 100;

@@ -9,6 +9,7 @@
 #include "Components/WidgetSwitcher.h"
 #include "PlayerJournal.generated.h"
 
+class AFP_Player;
 /**
  * 
  */
@@ -30,6 +31,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true))
 	int TabIndex;
+
+	UPROPERTY(BlueprintReadOnly, meta = (ExposeOnSpawn = true))
+	AFP_Player* PlayerRef;
 
 	void Setup();
 	
